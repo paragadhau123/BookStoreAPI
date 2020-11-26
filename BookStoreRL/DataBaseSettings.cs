@@ -12,7 +12,7 @@ namespace BookStoreRL
 
         public string UsersCollectionName { get; set; }
 
-        //public string BooksCollectionName { get; set; }
+        public string BooksCollectionName { get; set; }
     }
 
     public interface IBookStoreDatabaseSettings
@@ -23,7 +23,7 @@ namespace BookStoreRL
 
         string UsersCollectionName { get; set; }
 
-       // string BooksCollectionName { get; set; }
+        string BooksCollectionName { get; set; }
 
 
     }
