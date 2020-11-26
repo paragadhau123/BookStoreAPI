@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BookStoreBL.Interface;
 using BookStoreCL.Models;
+using BookStoreRL;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore.Controllers
@@ -71,6 +72,54 @@ namespace BookStore.Controllers
                 else
                 {
                     return this.NotFound(new { sucess = false, message = "No Such Book To Delete" });
+                }
+            }
+            catch (Exception e)
+            {
+                bool success = false;
+                return this.BadRequest(new { success, message = e.Message });
+            }
+
+        }
+
+        [HttpPut("{id:length(24)}")]
+        public IActionResult UpdateBookDetails(string id, Book book)
+        {
+            try
+            {
+                bool result = this.bookBL.UpdateBookDetails(id, book);
+
+                if (!result.Equals(false))
+                {
+                    return this.Ok(new { sucess = true, message = "Book Details Updated Succesfully" });
+                }
+                else
+                {
+                    return this.NotFound(new { sucess = false, message = "No Such Book To Updated" });
+                }
+            }
+            catch (Exception e)
+            {
+                bool success = false;
+                return this.BadRequest(new { success, message = e.Message });
+            }
+
+        }
+
+        [HttpGet("{id:length(24)}")]
+        public IActionResult SerchBookByID(string id)
+        {
+            try
+            {
+                var result = this.bookBL.SerchBookByID(id);
+
+                if (!result.Equals(null))
+                {
+                    return this.Ok(new { sucess = true, message = "Book details are displayed below" });
+                }
+                else
+                {
+                    return this.NotFound(new { sucess = false, message = "No Such Book" });
                 }
             }
             catch (Exception e)

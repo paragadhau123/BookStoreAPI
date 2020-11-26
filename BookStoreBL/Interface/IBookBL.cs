@@ -13,5 +13,9 @@ namespace BookStoreBL.Interface
        public List<Book> GetAllBooks();
 
        public bool DeleteBookById(string id);
+
+       public bool UpdateBookDetails(string id, Book book);
+
+       public List<Book> SerchBookByID(string id);
     }
 }

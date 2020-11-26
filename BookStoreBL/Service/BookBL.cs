@@ -30,5 +30,15 @@ namespace BookStoreBL.Service
         {
             return this.bookRL.GetAllBooks();
         }
+
+        public List<Book> SerchBookByID(string id)
+        {
+            return this.bookRL.SerchBookByID(id);
+        }
+
+        public bool UpdateBookDetails(string id, Book book)
+        {
+            return this.bookRL.UpdateBookDetails(id,book);
+        }
     }
 }

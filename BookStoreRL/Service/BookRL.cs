@@ -57,5 +57,23 @@ namespace BookStoreRL.Service
         {
             return this._Book.Find(book => true).ToList();
         }
+
+        public List<Book> SerchBookByID(string id)
+        {
+            return this._Book.Find(book => book.BookId == id).ToList();
+        }
+
+        public bool UpdateBookDetails(string id, Book book)
+        {
+            try
+            {
+                this._Book.ReplaceOne(book => book.BookId == id, book);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }
