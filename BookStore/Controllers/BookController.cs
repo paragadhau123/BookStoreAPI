@@ -33,5 +33,52 @@ namespace BookStore.Controllers
                 return this.BadRequest(new { sucess = false, message = e.Message });
             }
         }
+
+        [HttpGet("GetAllBooks")]
+        public IActionResult GetAllBooks()
+        {
+            try
+            {
+
+                var result = this.bookBL.GetAllBooks();
+                if (!result.Equals(null))
+                {
+                    return this.Ok(new { sucess = true, message = "All Books are displayed below succesfully", data = result });
+                }
+                else
+                {
+                    return this.NotFound(new { sucess = true, message = "No Books Are Present" });
+                }
+            }
+            catch (Exception e)
+            {
+                bool success = false;
+                return this.BadRequest(new { success, message = e.Message });
+            }
+        }
+
+        [HttpDelete("{id:length(24)}")]
+        public IActionResult DeleteBookById(string id)
+        {
+            try
+            {
+                bool result = this.bookBL.DeleteBookById(id);
+
+                if (!result.Equals(false))
+                {
+                    return this.Ok(new { sucess = true, message = "Book Deleted Succesfully" });
+                }
+                else
+                {
+                    return this.NotFound(new { sucess = false, message = "No Such Book To Delete" });
+                }
+            }
+            catch (Exception e)
+            {
+                bool success = false;
+                return this.BadRequest(new { success, message = e.Message });
+            }
+
+        }
     }
 }

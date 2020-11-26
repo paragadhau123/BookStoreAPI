@@ -1,5 +1,6 @@
 ﻿using BookStoreBL.Interface;
 using BookStoreCL.Models;
+using BookStoreRL;
 using BookStoreRL.Interface;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,16 @@ namespace BookStoreBL.Service
         public bool AddBook(BookModel bookModel)
         {
             return this.bookRL.AddBook(bookModel);
+        }
+
+        public bool DeleteBookById(string id)
+        {
+            return this.bookRL.DeleteBookById(id);
+        }
+
+        public List<Book> GetAllBooks()
+        {
+            return this.bookRL.GetAllBooks();
         }
     }
 }
