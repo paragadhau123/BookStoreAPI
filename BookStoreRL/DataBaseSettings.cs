@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BookStoreRL
 {
-    public class DataBaseSettings : IDatabaseSettings
+    public class BookStoreDatabaseSettings : IBookStoreDatabaseSettings
     {
         public string ConnectionString { get; set; }
 
@@ -12,11 +12,10 @@ namespace BookStoreRL
 
         public string UsersCollectionName { get; set; }
 
-
-        public string BooksCollectionName { get; set; }
+        //public string BooksCollectionName { get; set; }
     }
 
-    public interface IDatabaseSettings
+    public interface IBookStoreDatabaseSettings
     {
         string ConnectionString { get; set; }
 
@@ -24,7 +23,7 @@ namespace BookStoreRL
 
         string UsersCollectionName { get; set; }
 
-        string BooksCollectionName { get; set; }
+       // string BooksCollectionName { get; set; }
 
 
     }

@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BookStoreBL.Interface;
+using BookStoreBL.Service;
 using BookStoreRL;
+using BookStoreRL.Interface;
+using BookStoreRL.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,6 +15,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 
 namespace BookStore
 {
@@ -29,15 +34,15 @@ namespace BookStore
         {
             services.AddControllers();
 
-            services.Configure<DataBaseSettings>(
-              this.Configuration.GetSection(nameof(DataBaseSettings)));
-            services.AddSingleton<IDatabaseSettings>(sp =>
-              sp.GetRequiredService<IOptions<DataBaseSettings>>().Value);
+            services.Configure<BookStoreDatabaseSettings>(
+              this.Configuration.GetSection(nameof(BookStoreDatabaseSettings)));
+            services.AddSingleton<IBookStoreDatabaseSettings>(sp =>
+              sp.GetRequiredService<IOptions<BookStoreDatabaseSettings>>().Value);
 
             services.AddSingleton<IUserBL, UserBL>();
-            services.AddSingleton<IAccountsRL, AccountsRepositoryLayer>();
+            services.AddSingleton<IUserRL, UserRL>();
         }
-
+    
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -56,6 +61,7 @@ namespace BookStore
             {
                 endpoints.MapControllers();
             });
-        }
+               
+            }
     }
 }
