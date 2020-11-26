@@ -30,7 +30,7 @@ namespace BookStoreRL.Service
             }
         }
 
-        public List<User> GetAccountsDetails()
+        public List<User> GetAllUserDetails()
         {
             return this._User.Find(user => true).ToList();
         }

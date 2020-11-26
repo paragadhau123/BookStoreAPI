@@ -22,9 +22,9 @@ namespace BookStoreBL.Service
             return this.userRL.DeleteUserById(id);
         }
 
-        public List<User> GetAccountsDetails()
+        public List<User> GetAllUserDetails()
         {
-            return this.userRL.GetAccountsDetails();
+            return this.userRL.GetAllUserDetails();
         }
 
         public bool RegisterUser(UserModel userModel)

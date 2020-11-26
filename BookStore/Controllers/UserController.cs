@@ -43,12 +43,12 @@ namespace BookStore.Controllers
         }
 
         [HttpGet("GetAllUsers")]
-        public IActionResult GetAllAccountsDetails()
+        public IActionResult GetAllUserDetails()
         {
             try
             {
 
-                var result = this.userBL.GetAccountsDetails();
+                var result = this.userBL.GetAllUserDetails();
                 if (!result.Equals(null))
                 {
                     return this.Ok(new { sucess = true, message = "All users are displayed below succesfully", data = result });

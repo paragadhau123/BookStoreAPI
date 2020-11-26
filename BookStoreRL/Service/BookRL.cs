@@ -37,8 +37,12 @@ namespace BookStoreRL.Service
             catch
             {
                 return false;
-            }
-           
+            }           
+        }
+
+        public List<Book> GetAllBooks()
+        {
+            return this._Book.Find(book => true).ToList();
         }
     }
 }

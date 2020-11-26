@@ -8,5 +8,6 @@ namespace BookStoreRL.Interface
     public interface IBookRL
     {
       public bool AddBook(BookModel bookModel);
+        List<Book> GetAllBooks();
     }
 }

@@ -9,7 +9,7 @@ namespace BookStoreRL.Interface
     {
       public bool RegisterUser(UserModel userModel);
 
-       public List<User> GetAccountsDetails();
+       public List<User> GetAllUserDetails();
 
        public bool DeleteUserById(string id);
 
