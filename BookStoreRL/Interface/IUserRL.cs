@@ -12,6 +12,7 @@ namespace BookStoreRL.Interface
        public List<User> GetAccountsDetails();
 
        public bool DeleteUserById(string id);
+
        public bool UpdateAccountDetails(string id, User user);
     }
 }
