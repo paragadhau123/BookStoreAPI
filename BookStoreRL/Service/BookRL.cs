@@ -40,6 +40,19 @@ namespace BookStoreRL.Service
             }           
         }
 
+        public bool DeleteBookById(string id)
+        {
+            try
+            {
+                this._Book.DeleteOne(book => book.BookId == id);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public List<Book> GetAllBooks()
         {
             return this._Book.Find(book => true).ToList();
