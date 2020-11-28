@@ -52,6 +52,7 @@ namespace BookStoreRL.Service
             admin.AdminName = validation[0].AdminName;
             admin.AdminEmailId = validation[0].AdminEmailId;
             admin.AdminRole = validation[0].AdminRole;
+            admin.AdminGender = validation[0].AdminGender;
             admin.Token = CreateToken(admin, "authenticate Admin role");
 
             return admin; 
@@ -61,22 +62,6 @@ namespace BookStoreRL.Service
         {
             try
             {
-
-              /*  var symmetricSecuritykey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SuperSecretKey@345fghhhhhhhhhhhhhhhhhhhhhhhhhhhhhfggggggg"));
-                var signingCreds = new SigningCredentials(symmetricSecuritykey, SecurityAlgorithms.HmacSha256);
-
-                var claims = new List<Claim>();
-                claims.Add(new Claim(ClaimTypes.Role, responseModel.AdminRole));
-                claims.Add(new Claim("Email", responseModel.AdminEmailId.ToString()));
-                claims.Add(new Claim("Id", responseModel.AdminId.ToString()));
-               // claims.Add(new Claim("TokenType", type));
-
-                var token = new JwtSecurityToken(
-                     claims: claims,
-                    expires: DateTime.Now.AddHours(1),
-                    signingCredentials: signingCreds);
-                return new JwtSecurityTokenHandler().WriteToken(token);*/
-
                 var secretkey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SuperSecretKey@345fghhhhhhhhhhhhhhhhhhhhhhhhhhhhhfggggggg"));
                 var signinCredentials = new SigningCredentials(secretkey, SecurityAlgorithms.HmacSha256);
                 var claims = new List<Claim>

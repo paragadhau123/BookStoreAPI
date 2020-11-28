@@ -22,7 +22,7 @@ namespace BookStoreCL
 
         public string Password { get; set; }
 
-        public string Role { get; set; }
+       // public string Role { get; set; }
 
         public DateTime RegistrationDate { get; set; }
     }

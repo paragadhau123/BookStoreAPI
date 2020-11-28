@@ -1,8 +1,13 @@
 ﻿using BookStoreCL;
+using BookStoreCL.Models;
 using BookStoreRL.Interface;
+using Microsoft.IdentityModel.Tokens;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace BookStoreRL.Service
 {
@@ -35,6 +40,51 @@ namespace BookStoreRL.Service
             return this._User.Find(user => true).ToList();
         }
 
+        public User LoginAdmin(UserLoginModel userLoginModel)
+        {
+            List<User> validation = _User.Find(user => user.EmailId == userLoginModel.UserEmailId && user.Password == userLoginModel.UserPassword).ToList();
+            User user = new User();
+            user.Id = validation[0].Id;
+            user.FirstName = validation[0].FirstName;
+            user.LastName = validation[0].LastName;
+            user.EmailId = validation[0].EmailId;
+            user.PhoneNumber = validation[0].PhoneNumber;
+            user.Gender = validation[0].Gender;
+            user.Token= CreateToken(user, "User");
+
+            return user;
+        }
+
+        private string CreateToken(User responseModel, string role)
+        {
+            try
+            {
+                var secretkey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SuperSecretKey@345fghhhhhhhhhhhhhhhhhhhhhhhhhhhhhfggggggg"));
+                var signinCredentials = new SigningCredentials(secretkey, SecurityAlgorithms.HmacSha256);
+                var claims = new List<Claim>
+                        {
+                            new Claim(ClaimTypes.Role, role),
+
+                            new Claim("email", responseModel.EmailId.ToString() ),
+
+                            new Claim("id",responseModel.Id.ToString()),
+
+                        };
+                var tokenOptionOne = new JwtSecurityToken(
+
+                    claims: claims,
+                    expires: DateTime.Now.AddMinutes(130),
+                    signingCredentials: signinCredentials
+                    );
+                string token = new JwtSecurityTokenHandler().WriteToken(tokenOptionOne);
+                return token;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public bool RegisterUser(UserModel userModel)
         {
             try
@@ -47,7 +97,7 @@ namespace BookStoreRL.Service
                     EmailId = userModel.EmailId,
                     PhoneNumber = userModel.PhoneNumber,
                     Password = userModel.Password,
-                    Role="User",
+                  //  Role="User",
                     RegistrationDate = userModel.RegistrationDate
                 };
                 this._User.InsertOne(user);

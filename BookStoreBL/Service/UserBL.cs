@@ -1,5 +1,6 @@
 ﻿using BookStoreBL.Interface;
 using BookStoreCL;
+using BookStoreCL.Models;
 using BookStoreRL;
 using BookStoreRL.Interface;
 using System;
@@ -25,6 +26,11 @@ namespace BookStoreBL.Service
         public List<User> GetAllUserDetails()
         {
             return this.userRL.GetAllUserDetails();
+        }
+
+        public User LoginAdmin(UserLoginModel userLoginModel)
+        {
+            return this.userRL.LoginAdmin(userLoginModel);
         }
 
         public bool RegisterUser(UserModel userModel)

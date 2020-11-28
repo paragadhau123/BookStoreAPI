@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BookStoreBL.Interface;
 using BookStoreCL;
+using BookStoreCL.Models;
 using BookStoreRL;
 using Microsoft.AspNetCore.Mvc;
 
@@ -110,6 +111,35 @@ namespace BookStore.Controllers
             {
                 bool success = false;
                 return this.BadRequest(new { success, message = e.Message });
+            }
+
+        }
+
+        [HttpPost("UserLogin")]
+        public IActionResult LoginAdmin(UserLoginModel userLoginModel)
+        {
+            try
+            {
+                if (userLoginModel != null)
+                {
+                    User Data = userBL.LoginAdmin(userLoginModel);
+                    if (Data != null)
+                    {
+                        return Ok(new { Success = true, Message = " User Login Successful", Data });
+                    }
+                    else
+                    {
+                        return BadRequest(new { Success = false, Message = "Wrong Email or Password" });
+                    }
+                }
+                else
+                {
+                    return BadRequest(new { Success = false, Message = "Invalid credentials" });
+                }
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new { Success = false, message = e.Message });
             }
 
         }

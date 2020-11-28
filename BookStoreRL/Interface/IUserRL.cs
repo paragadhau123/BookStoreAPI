@@ -1,4 +1,5 @@
 ﻿using BookStoreCL;
+using BookStoreCL.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,5 +15,7 @@ namespace BookStoreRL.Interface
        public bool DeleteUserById(string id);
 
        public bool UpdateAccountDetails(string id, User user);
+
+       User LoginAdmin(UserLoginModel userLoginModel);
     }
 }
