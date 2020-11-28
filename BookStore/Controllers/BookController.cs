@@ -9,9 +9,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore.Controllers
 {
-    public class BookController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class BookController : ControllerBase
     {
         public IBookBL bookBL;
+
+        public BookController(IBookBL bookBL)
+        {
+            this.bookBL = bookBL;
+        }
          
         [HttpPost("AddBook")]
         public IActionResult AddBook(BookModel bookModel)
@@ -115,7 +122,7 @@ namespace BookStore.Controllers
 
                 if (!result.Equals(null))
                 {
-                    return this.Ok(new { sucess = true, message = "Book details are displayed below" });
+                    return this.Ok(new { sucess = true, message = "Book details are displayed below",data=result });
                 }
                 else
                 {
