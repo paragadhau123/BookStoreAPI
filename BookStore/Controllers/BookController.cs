@@ -47,6 +47,7 @@ namespace BookStore.Controllers
         }
 
         [HttpGet("GetAllBooks")]
+        [AllowAnonymous]
         public IActionResult GetAllBooks()
         {
             try
@@ -118,6 +119,7 @@ namespace BookStore.Controllers
         }
 
         [HttpGet("{id:length(24)}")]
+        [AllowAnonymous]
         public IActionResult SerchBookByID(string id)
         {
             try
