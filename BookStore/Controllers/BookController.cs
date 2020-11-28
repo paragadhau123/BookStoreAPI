@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using BookStoreBL.Interface;
 using BookStoreCL.Models;
 using BookStoreRL;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class BookController : ControllerBase
     {
         public IBookBL bookBL;
@@ -19,7 +21,9 @@ namespace BookStore.Controllers
         {
             this.bookBL = bookBL;
         }
-         
+
+
+       
         [HttpPost("AddBook")]
         public IActionResult AddBook(BookModel bookModel)
         {

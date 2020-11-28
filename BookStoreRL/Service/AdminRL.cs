@@ -46,13 +46,13 @@ namespace BookStoreRL.Service
 
         public Admin LoginAdmin(AdminLoginModel adminLoginModel)
         {
-            List<Admin> validation = _Admin.Find(admin => admin.AdminEmailId == adminLoginModel.Email && admin.AdminPassword == adminLoginModel.Password).ToList();
+            List<Admin> validation = _Admin.Find(admin => admin.AdminEmailId == adminLoginModel.AdminEmailId && admin.AdminPassword == adminLoginModel.AdminPassword).ToList();
             Admin admin = new Admin();
             admin.AdminId = validation[0].AdminId;
             admin.AdminName = validation[0].AdminName;
             admin.AdminEmailId = validation[0].AdminEmailId;
             admin.AdminRole = validation[0].AdminRole;
-            admin.Token = CreateToken(admin, "authenticate user role");
+            admin.Token = CreateToken(admin, "authenticate Admin role");
 
             return admin; 
         }
@@ -61,20 +61,41 @@ namespace BookStoreRL.Service
         {
             try
             {
-                var symmetricSecuritykey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SuperSecretKey@345fghhhhhhhhhhhhhhhhhhhhhhhhhhhhhfggggggg"));
+
+              /*  var symmetricSecuritykey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SuperSecretKey@345fghhhhhhhhhhhhhhhhhhhhhhhhhhhhhfggggggg"));
                 var signingCreds = new SigningCredentials(symmetricSecuritykey, SecurityAlgorithms.HmacSha256);
 
                 var claims = new List<Claim>();
                 claims.Add(new Claim(ClaimTypes.Role, responseModel.AdminRole));
                 claims.Add(new Claim("Email", responseModel.AdminEmailId.ToString()));
                 claims.Add(new Claim("Id", responseModel.AdminId.ToString()));
-                claims.Add(new Claim("TokenType", type));
+               // claims.Add(new Claim("TokenType", type));
 
                 var token = new JwtSecurityToken(
                      claims: claims,
                     expires: DateTime.Now.AddHours(1),
                     signingCredentials: signingCreds);
-                return new JwtSecurityTokenHandler().WriteToken(token);
+                return new JwtSecurityTokenHandler().WriteToken(token);*/
+
+                var secretkey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SuperSecretKey@345fghhhhhhhhhhhhhhhhhhhhhhhhhhhhhfggggggg"));
+                var signinCredentials = new SigningCredentials(secretkey, SecurityAlgorithms.HmacSha256);
+                var claims = new List<Claim>
+                        {
+                            new Claim(ClaimTypes.Role, responseModel.AdminRole),
+
+                            new Claim("email", responseModel.AdminEmailId.ToString() ),
+
+                            new Claim("id",responseModel.AdminId.ToString()),
+
+                        };
+                var tokenOptionOne = new JwtSecurityToken(
+
+                    claims: claims,
+                    expires: DateTime.Now.AddMinutes(130),
+                    signingCredentials: signinCredentials
+                    );
+                string token = new JwtSecurityTokenHandler().WriteToken(tokenOptionOne);
+                return token;
             }
             catch (Exception ex)
             {
