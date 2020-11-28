@@ -19,5 +19,9 @@ namespace BookStoreRL
         public string AdminPassword { get; set; }
 
         public string AdminGender { get; set; }
+
+        public string AdminRole { get; set; }
+
+        public string Token { get; set; }
     }
 }

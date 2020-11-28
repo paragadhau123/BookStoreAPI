@@ -19,5 +19,8 @@ namespace BookStoreCL.Models
         public string AdminPassword { get; set; }
 
         public string AdminGender { get; set; }
+
+        public string AdminRole { get; set; }
+
     }
 }

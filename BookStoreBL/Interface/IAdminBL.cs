@@ -1,10 +1,15 @@
-﻿using System;
+﻿using BookStoreCL.Models;
+using BookStoreRL;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace BookStoreBL.Interface
 {
-    interface IAdminBL
+    public interface IAdminBL
     {
+        bool RegisterAdmin(AdminModel adminModel);
+
+        Admin LoginAdmin(AdminLoginModel adminLoginModel);
     }
 }
