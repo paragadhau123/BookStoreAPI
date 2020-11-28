@@ -43,6 +43,8 @@ namespace BookStore
             services.AddSingleton<IUserRL, UserRL>();
             services.AddSingleton<IBookBL, BookBL>();
             services.AddSingleton<IBookRL, BookRL>();
+            services.AddSingleton<IAdminBL, AdminBL>();
+            services.AddSingleton<IAdminRL, AdminRL>();
         }
     
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
