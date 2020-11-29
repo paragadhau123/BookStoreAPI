@@ -17,5 +17,6 @@ namespace BookStoreRL.Interface
        public bool UpdateAccountDetails(string id, User user);
 
        User LoginAdmin(UserLoginModel userLoginModel);
+        string ForgetPassword(UserForgetPasswordModel userForgetPasswordModel);
     }
 }

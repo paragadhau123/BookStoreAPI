@@ -23,6 +23,11 @@ namespace BookStoreBL.Service
             return this.userRL.DeleteUserById(id);
         }
 
+        public string ForgetPassword(UserForgetPasswordModel userForgetPasswordModel)
+        {
+            return this.userRL.ForgetPassword(userForgetPasswordModel);
+        }
+
         public List<User> GetAllUserDetails()
         {
             return this.userRL.GetAllUserDetails();

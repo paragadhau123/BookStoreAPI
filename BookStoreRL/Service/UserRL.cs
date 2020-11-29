@@ -6,6 +6,8 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Text;
 
@@ -121,6 +123,32 @@ namespace BookStoreRL.Service
             {
                 return false;
             }
+        }
+
+        public string ForgetPassword(UserForgetPasswordModel userForgetPasswordModel)
+        {
+            List<User> details = this._User.Find(user => user.EmailId == userForgetPasswordModel.EmailId).ToList();
+            User user = new User();
+            user.EmailId = details[0].EmailId;
+            user.Id = details[0].Id;
+            string Token = CreateToken(user, "User");
+
+
+            String body = "http://localhost:4200/resetPassword/" + Token;
+            MailMessage mailMessage = new MailMessage(userForgetPasswordModel.EmailId, userForgetPasswordModel.EmailId);
+            mailMessage.Subject = "reset password";
+            mailMessage.Body = body;
+            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+            smtpClient.UseDefaultCredentials = false;
+            smtpClient.Credentials = new NetworkCredential()
+            {
+                UserName = userForgetPasswordModel.EmailId,
+                Password = "parag123#"
+            };
+            smtpClient.EnableSsl = true;
+
+            smtpClient.Send(mailMessage);
+            return Token;
         }
     }
 }
