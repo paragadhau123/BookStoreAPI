@@ -21,8 +21,6 @@ namespace BookStore.Controllers
         {
             this.bookBL = bookBL;
         }
-
-
        
         [HttpPost("AddBook")]
         public IActionResult AddBook(BookModel bookModel)

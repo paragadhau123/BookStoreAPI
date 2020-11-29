@@ -70,5 +70,26 @@ namespace BookStore.Controllers
             }
 
         }
+
+        [HttpPost("AdminForgetPassword")]
+        public IActionResult ForgetPassword(AdminForgetPasswordModel adminForgetPasswordModel)
+        {
+            try
+            {
+                if (adminForgetPasswordModel != null)
+                {
+                    string result = adminBL.ForgetPassword(adminForgetPasswordModel);
+                    return Ok(new { success = true, Message = "Reset password link has been sent to your email",Token=result });
+                }
+                else
+                {
+                    return BadRequest(new { Suceess = false, Meassage = "Email field can not be empty" });
+                }
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new { Suceess = false, Meassage = e.Message });
+            }
+        }
     }
 }

@@ -11,5 +11,8 @@ namespace BookStoreBL.Interface
         bool RegisterAdmin(AdminModel adminModel);
 
         Admin LoginAdmin(AdminLoginModel adminLoginModel);
+
+
+        string ForgetPassword(AdminForgetPasswordModel adminForgetPasswordModel);
     }
 }

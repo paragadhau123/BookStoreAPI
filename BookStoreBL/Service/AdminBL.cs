@@ -17,6 +17,11 @@ namespace BookStoreBL.Service
             this.adminRL = adminRL;
         }
 
+        public string ForgetPassword(AdminForgetPasswordModel adminForgetPasswordModel)
+        {
+            return this.adminRL.ForgetPassword(adminForgetPasswordModel);
+        }
+
         public Admin LoginAdmin(AdminLoginModel adminLoginModel)
         {
             return this.adminRL.LoginAdmin(adminLoginModel);

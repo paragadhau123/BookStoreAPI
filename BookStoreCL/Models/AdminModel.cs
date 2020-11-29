@@ -20,7 +20,7 @@ namespace BookStoreCL.Models
 
         public string AdminGender { get; set; }
 
-        public string AdminRole { get; set; }
+       // public string AdminRole { get; set; }
 
     }
 }

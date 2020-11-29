@@ -5,6 +5,8 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Text;
 
@@ -32,7 +34,6 @@ namespace BookStoreRL.Service
                     AdminEmailId=adminModel.AdminEmailId,
                     AdminPassword=adminModel.AdminPassword,
                     AdminGender=adminModel.AdminGender,
-                    AdminRole=adminModel.AdminRole
                 };
                 this._Admin.InsertOne(admin);
                 return true;
@@ -51,14 +52,13 @@ namespace BookStoreRL.Service
             admin.AdminId = validation[0].AdminId;
             admin.AdminName = validation[0].AdminName;
             admin.AdminEmailId = validation[0].AdminEmailId;
-            admin.AdminRole = validation[0].AdminRole;
             admin.AdminGender = validation[0].AdminGender;
-            admin.Token = CreateToken(admin, "authenticate Admin role");
+            admin.Token = CreateToken(admin, "Admin");
 
             return admin; 
         }
 
-        private string CreateToken(Admin responseModel, string type)
+        private string CreateToken(Admin responseModel, string role)
         {
             try
             {
@@ -66,7 +66,7 @@ namespace BookStoreRL.Service
                 var signinCredentials = new SigningCredentials(secretkey, SecurityAlgorithms.HmacSha256);
                 var claims = new List<Claim>
                         {
-                            new Claim(ClaimTypes.Role, responseModel.AdminRole),
+                            new Claim(ClaimTypes.Role, role),
 
                             new Claim("email", responseModel.AdminEmailId.ToString() ),
 
@@ -88,6 +88,30 @@ namespace BookStoreRL.Service
             }
         }
 
+        public string ForgetPassword(AdminForgetPasswordModel adminForgetPasswordModel)
+        {
+                List<Admin> details = this._Admin.Find(admin => admin.AdminEmailId == adminForgetPasswordModel.AdminEmailId).ToList();
+                Admin admin = new Admin();
+                admin.AdminEmailId = details[0].AdminEmailId;
+                admin.AdminId = details[0].AdminId;
+                string Token = CreateToken(admin, "Admin");
 
+
+                String body = "http://localhost:4200/resetPassword/" + Token;
+                MailMessage mailMessage = new MailMessage(adminForgetPasswordModel.AdminEmailId, adminForgetPasswordModel.AdminEmailId);
+                mailMessage.Subject = "reset password";
+                mailMessage.Body = body;
+                SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+                smtpClient.UseDefaultCredentials = false;
+                smtpClient.Credentials = new NetworkCredential()
+                {
+                UserName = adminForgetPasswordModel.AdminEmailId,
+                Password = "parag123#"
+                };
+                smtpClient.EnableSsl = true;
+
+                smtpClient.Send(mailMessage);
+                return Token;           
+        }
     }
 }
