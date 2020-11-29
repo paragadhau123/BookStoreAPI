@@ -121,5 +121,18 @@ namespace BookStoreRL.Service
             _Admin.UpdateOne(filter, update);
             return true;
         }
+
+        public bool DeleteAdminById(string id)
+        {
+            try
+            {
+                this._Admin.DeleteOne(admin => admin.AdminId == id);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }
