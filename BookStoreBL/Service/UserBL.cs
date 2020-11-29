@@ -43,6 +43,11 @@ namespace BookStoreBL.Service
             return this.userRL.RegisterUser(userModel);
         }
 
+        public bool ResetPassword(UserResetPasswordModel userResetPasswordModel, string userId)
+        {
+            return this.userRL.ResetPassword(userResetPasswordModel, userId);
+        }
+
         public bool UpdateAccountDetails(string id, User user)
         {
             return this.userRL.UpdateAccountDetails(id,user);

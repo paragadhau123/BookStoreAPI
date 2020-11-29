@@ -165,5 +165,31 @@ namespace BookStore.Controllers
                 return BadRequest(new { Suceess = false, Meassage = e.Message });
             }
         }
+
+        [HttpPost("UserResetPassword")]
+        public IActionResult ResetPassword( UserResetPasswordModel userResetPasswordModel)
+        {
+            try
+            {
+                if (userResetPasswordModel != null)
+                {
+                    string userId = this.GetUserId();
+                    bool pass = this.userBL.ResetPassword(userResetPasswordModel, userId);
+                    return this.Ok(new { Success = true, Message = "Password is changed succesfully" });
+                }
+                else
+                {
+                    return this.BadRequest(new { Success = false, Message = "NewPassword can not be empty" });
+                }
+            }
+            catch (Exception e)
+            {
+                return this.BadRequest(new { Success = false, message = e.Message });
+            }
+        }
+        private string GetUserId()
+        {
+            return User.FindFirst("Id").Value;
+        }
     }
 }

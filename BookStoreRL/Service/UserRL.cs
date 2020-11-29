@@ -150,6 +150,14 @@ namespace BookStoreRL.Service
             smtpClient.Send(mailMessage);
             return Token;
         }
+
+        public bool ResetPassword(UserResetPasswordModel userResetPasswordModel, string userId)
+        {
+            var filter = Builders<User>.Filter.Eq("Id", userId);
+            var update = Builders<User>.Update.Set("Password", userResetPasswordModel.NewPassword);
+            _User.UpdateOne(filter, update);
+            return true;
+        }
     }
 }
   

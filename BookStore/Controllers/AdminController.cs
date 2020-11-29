@@ -93,7 +93,7 @@ namespace BookStore.Controllers
         }
 
 
-        [HttpPost("ResetPassword")]
+        [HttpPost("AdminResetPassword")]
         public IActionResult ResetPassword(AdminResetPasswordModel adminResetPasswordModel)
         {
             try
