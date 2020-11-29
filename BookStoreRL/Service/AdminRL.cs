@@ -134,5 +134,18 @@ namespace BookStoreRL.Service
                 return false;
             }
         }
+
+        public bool UpdateAdminDetails(string id, Admin admin)
+        {
+            try
+            {
+                this._Admin.ReplaceOne(admin => admin.AdminId == id, admin);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }
