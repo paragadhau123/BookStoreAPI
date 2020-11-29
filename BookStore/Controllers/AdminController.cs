@@ -79,7 +79,7 @@ namespace BookStore.Controllers
                 if (adminForgetPasswordModel != null)
                 {
                     string result = adminBL.ForgetPassword(adminForgetPasswordModel);
-                    return Ok(new { success = true, Message = "Reset password link has been sent to your email",Token=result });
+                    return Ok(new { success = true, Message = "Reset password link has been sent to your email" });
                 }
                 else
                 {
@@ -90,6 +90,33 @@ namespace BookStore.Controllers
             {
                 return BadRequest(new { Suceess = false, Meassage = e.Message });
             }
+        }
+
+
+        [HttpPost("ResetPassword")]
+        public IActionResult ResetPassword(AdminResetPasswordModel adminResetPasswordModel)
+        {
+            try
+            {
+                if (adminResetPasswordModel != null)
+                {
+                    string adminId = this.GetAdminId();
+                    bool pass = this.adminBL.ResetPassword(adminResetPasswordModel, adminId);
+                    return this.Ok(new { Success = true, Message = "Password is changed succesfully" });
+                }
+                else
+                {
+                    return this.BadRequest(new { Success = false, Message = "NewPassword can not be empty" });
+                }
+            }
+            catch (Exception e)
+            {
+                return this.BadRequest(new { Success = false, message = e.Message });
+            }
+        }
+        private string GetAdminId()
+        {
+            return User.FindFirst("Id").Value;
         }
     }
 }

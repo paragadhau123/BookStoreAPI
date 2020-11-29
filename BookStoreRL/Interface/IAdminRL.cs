@@ -12,5 +12,7 @@ namespace BookStoreRL.Interface
         Admin LoginAdmin(AdminLoginModel adminLoginModel);
 
         string ForgetPassword(AdminForgetPasswordModel adminForgetPasswordModel);
+
+        bool ResetPassword(AdminResetPasswordModel adminResetPasswordModel, string adminId);
     }
 }

@@ -113,5 +113,13 @@ namespace BookStoreRL.Service
                 smtpClient.Send(mailMessage);
                 return Token;           
         }
+
+        public bool ResetPassword(AdminResetPasswordModel adminResetPasswordModel, string adminId)
+        {
+            var filter = Builders<Admin>.Filter.Eq("AdminId", adminId);
+            var update = Builders<Admin>.Update.Set("AdminPassword", adminResetPasswordModel.AdminNewPassword);
+            _Admin.UpdateOne(filter, update);
+            return true;
+        }
     }
 }

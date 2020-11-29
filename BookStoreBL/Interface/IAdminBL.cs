@@ -14,5 +14,7 @@ namespace BookStoreBL.Interface
 
 
         string ForgetPassword(AdminForgetPasswordModel adminForgetPasswordModel);
+
+        bool ResetPassword(AdminResetPasswordModel adminResetPasswordModel, string adminId);
     }
 }

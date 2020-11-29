@@ -31,5 +31,10 @@ namespace BookStoreBL.Service
         {
             return this.adminRL.RegisterAdmin(adminModel);
         }
+
+        public bool ResetPassword(AdminResetPasswordModel adminResetPasswordModel, string adminId)
+        {
+            return this.adminRL.ResetPassword(adminResetPasswordModel, adminId);
+        }
     }
 }
