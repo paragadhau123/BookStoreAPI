@@ -114,6 +114,53 @@ namespace BookStore.Controllers
                 return this.BadRequest(new { Success = false, message = e.Message });
             }
         }
+
+        [HttpDelete("{id:length(24)}")]
+        public IActionResult DeleteAdminById(string id)
+        {
+            try
+            {
+                bool result = this.adminBL.DeleteAdminById(id);
+
+                if (!result.Equals(false))
+                {
+                    return this.Ok(new { sucess = true, message = "Admin Deleted Succesfully" });
+                }
+                else
+                {
+                    return this.NotFound(new { sucess = false, message = "No Admin To Delete" });
+                }
+            }
+            catch (Exception e)
+            {
+                bool success = false;
+                return this.BadRequest(new { success, message = e.Message });
+            }
+
+        }
+
+        [HttpPut("{id:length(24)}")]
+        public IActionResult UpdateAdminDetails(string id, Admin admin)
+        {
+            try
+            {
+                bool result = this.adminBL.UpdateAdminDetails(id, admin);
+
+                if (!result.Equals(false))
+                {
+                    return this.Ok(new { sucess = true, message = "Admin Details Updated Succesfully" });
+                }
+                else
+                {
+                    return this.NotFound(new { sucess = false, message = "No Admin To Updated" });
+                }
+            }
+            catch (Exception e)
+            {
+                bool success = false;
+                return this.BadRequest(new { success, message = e.Message });
+            }
+        }
         private string GetAdminId()
         {
             return User.FindFirst("Id").Value;

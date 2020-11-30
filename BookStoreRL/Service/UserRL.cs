@@ -99,7 +99,6 @@ namespace BookStoreRL.Service
                     EmailId = userModel.EmailId,
                     PhoneNumber = userModel.PhoneNumber,
                     Password = userModel.Password,
-                  //  Role="User",
                     RegistrationDate = userModel.RegistrationDate
                 };
                 this._User.InsertOne(user);

@@ -17,6 +17,11 @@ namespace BookStoreBL.Service
             this.adminRL = adminRL;
         }
 
+        public bool DeleteAdminById(string id)
+        {
+            return this.adminRL.DeleteAdminById(id);
+        }
+
         public string ForgetPassword(AdminForgetPasswordModel adminForgetPasswordModel)
         {
             return this.adminRL.ForgetPassword(adminForgetPasswordModel);
@@ -35,6 +40,11 @@ namespace BookStoreBL.Service
         public bool ResetPassword(AdminResetPasswordModel adminResetPasswordModel, string adminId)
         {
             return this.adminRL.ResetPassword(adminResetPasswordModel, adminId);
+        }
+
+        public bool UpdateAdminDetails(string id, Admin admin)
+        {
+            return this.adminRL.UpdateAdminDetails(id, admin);
         }
     }
 }

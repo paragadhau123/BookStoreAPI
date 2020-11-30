@@ -49,8 +49,9 @@ namespace BookStore
             services.AddSingleton<IBookRL, BookRL>();
             services.AddSingleton<IAdminBL, AdminBL>();
             services.AddSingleton<IAdminRL, AdminRL>();
+            services.AddSingleton<IWishListBL, WishListBL>();
+            services.AddSingleton<IWishListRl, WishListRL>();
 
-           
 
 
             services.AddSwaggerGen(s =>

@@ -112,7 +112,6 @@ namespace BookStore.Controllers
                 bool success = false;
                 return this.BadRequest(new { success, message = e.Message });
             }
-
         }
 
         [HttpPost("UserLogin")]
