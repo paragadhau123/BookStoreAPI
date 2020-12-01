@@ -21,8 +21,7 @@ namespace BookStore.Controllers
         }
 
         [Authorize(Roles = "User")]
-        [HttpPost]
-        [Route("")]
+        [HttpPost("{BookId:length(24)}")]
         public IActionResult AddWishList(string BookId)
         {
             try

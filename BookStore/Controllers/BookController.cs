@@ -140,5 +140,57 @@ namespace BookStore.Controllers
             }
 
         }
+
+        [HttpGet("SortByPriceLowToHigh")]
+        [AllowAnonymous]
+        public IActionResult SortBooks()
+        {
+            try
+            {
+                var result = this.bookBL.SortBooks();
+
+                if (!result.Equals(null))
+                {
+                    return this.Ok(new { sucess = true, message = "Book  are sort by price low to high", data = result });
+                }
+                else
+                {
+                    return this.NotFound(new { sucess = false, message = "sorting unsuccesfull" });
+                }
+            }
+            catch (Exception e)
+            {
+                bool success = false;
+                return this.BadRequest(new { success, message = e.Message });
+            }
+
+        }
+
+
+        [HttpGet("SortByPriceHighToLow")]
+        [AllowAnonymous]
+        public IActionResult SortHighToLow()
+        {
+            try
+            {
+                var result = this.bookBL.SortHighToLow();
+
+                if (!result.Equals(null))
+                {
+                    return this.Ok(new { sucess = true, message = "Book  are sort by price high to low", data = result });
+                }
+                else
+                {
+                    return this.NotFound(new { sucess = false, message = "sorting unsuccesfull" });
+                }
+            }
+            catch (Exception e)
+            {
+                bool success = false;
+                return this.BadRequest(new { success, message = e.Message });
+            }
+
+        }
+
     }
 }

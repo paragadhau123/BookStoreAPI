@@ -3,6 +3,7 @@ using BookStoreRL.Interface;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace BookStoreRL.Service
@@ -61,6 +62,16 @@ namespace BookStoreRL.Service
         public List<Book> SerchBookByID(string id)
         {
             return this._Book.Find(book => book.BookId == id).ToList();
+        }
+
+        public List<Book> SortBooks()
+        {           
+          return _Book.AsQueryable().OrderBy(c => c.Price).ToList();           
+        }
+
+        public List<Book> SortHighToLow()
+        {
+            return _Book.AsQueryable().OrderByDescending(c => c.Price).ToList();
         }
 
         public bool UpdateBookDetails(string id, Book book)

@@ -36,6 +36,16 @@ namespace BookStoreBL.Service
             return this.bookRL.SerchBookByID(id);
         }
 
+        public List<Book> SortBooks()
+        {
+            return this.bookRL.SortBooks();
+        }
+
+        public List<Book> SortHighToLow()
+        {
+            return this.bookRL.SortHighToLow();
+        }
+
         public bool UpdateBookDetails(string id, Book book)
         {
             return this.bookRL.UpdateBookDetails(id,book);

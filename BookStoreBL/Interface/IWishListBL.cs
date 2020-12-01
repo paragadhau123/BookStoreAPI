@@ -8,6 +8,6 @@ namespace BookStoreBL.Interface
     public interface IWishListBL
     {
         WishList AddBookToWishList(string userId, string bookId);
-        List<WishList> GetAllWishListValues(userId);
+        List<WishList> GetAllWishListValues(string userId);
     }
 }

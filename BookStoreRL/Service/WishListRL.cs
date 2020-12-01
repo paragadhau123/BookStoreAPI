@@ -2,15 +2,16 @@
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace BookStoreRL.Service
 {
     public class WishListRL : IWishListRl
     {
-
         private readonly IMongoCollection<WishList> _WishList;
         private readonly IMongoCollection<Book> _Book;
+
         public WishListRL(IBookStoreDatabaseSettings settings)
         {
             var client = new MongoClient(settings.ConnectionString);
@@ -34,7 +35,17 @@ namespace BookStoreRL.Service
 
         public List<WishList> GetAllWishListValues(string userId)
         {
-            throw new NotImplementedException();
+            List<WishList> details = this._WishList.Find(wishlist => wishlist.UserId == userId).ToList();
+
+            if (details.Count == 0)
+            {
+                return null;
+            }
+            else
+            {
+                return null;
+
+            }
         }
     }
 }
