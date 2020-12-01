@@ -17,7 +17,10 @@ namespace BookStoreRL
         public string AdminCollectionName { get; set; }
 
         public string WishListCollectionName { get; set; }
+
+        public string CartCollectionName { get; set; }
     }
+
 
     public interface IBookStoreDatabaseSettings
     {
@@ -32,5 +35,7 @@ namespace BookStoreRL
         public string AdminCollectionName { get; set; }
 
         public string WishListCollectionName { get; set; }
+
+        public string CartCollectionName { get; set; }
     }
 }

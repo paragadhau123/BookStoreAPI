@@ -4,7 +4,8 @@ using System.Text;
 
 namespace BookStoreRL.Interface
 {
-   public interface ICartRL
+    public interface ICartRL
     {
+        Cart AddBookToCart(string userId, string bookId);
     }
 }
