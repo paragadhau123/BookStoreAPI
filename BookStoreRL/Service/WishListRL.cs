@@ -11,6 +11,7 @@ namespace BookStoreRL.Service
     {
         private readonly IMongoCollection<WishList> _WishList;
         private readonly IMongoCollection<Book> _Book;
+        private readonly IMongoCollection<Cart> _Cart;
 
         public WishListRL(IBookStoreDatabaseSettings settings)
         {
@@ -18,6 +19,7 @@ namespace BookStoreRL.Service
             var database = client.GetDatabase(settings.DatabaseName);
             this._WishList = database.GetCollection<WishList>(settings.WishListCollectionName);
             this._Book= database.GetCollection<Book>(settings.BooksCollectionName);
+            _Cart = database.GetCollection<Cart>(settings.CartCollectionName);
         }
 
         public WishList AddBookToWishList(string userId, string bookId)
@@ -46,6 +48,19 @@ namespace BookStoreRL.Service
                 return null;
 
             }
+        }
+
+        public Cart MoveToCart(string userId, string wishListId)
+        {
+            List<WishList> details = this._WishList.Find(wishlist => wishlist.WishListId == wishListId).ToList();
+            Cart cart = new Cart()
+            {
+                UserId = userId,
+                BookId = details[0].BookId
+            };
+            this._Cart.InsertOne(cart);
+            this._WishList.DeleteOne(wishList => wishList.WishListId == wishListId);
+            return cart;
         }
     }
 }

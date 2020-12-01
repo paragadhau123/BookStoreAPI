@@ -73,6 +73,37 @@ namespace BookStore.Controllers
                 return this.BadRequest(new { status = false, message = e.Message });
             }
         }
+
+        [HttpPost]
+        [Route("MoveToCart")]
+        [Authorize(Roles = "User")]
+        public IActionResult MoveToCart(string WishListId)
+        {
+            try
+            {
+                string userId = this.GetUserId();
+                // Call the MoveToCart Method of Cart class
+                var response = this.wishlistBL.MoveToCart(userId, WishListId);
+
+                // check if Id is not equal to zero
+                if (!response.Equals(null))
+                {
+                    bool status = true;
+                    var message = "Successfully Move To Cart";
+                    return this.Ok(new { status, message, data = response });
+                }
+                else
+                {
+                    bool status = false;
+                    var message = "Failed To Move";
+                    return this.NotFound(new { status, message });
+                }
+            }
+            catch (Exception e)
+            {
+                return this.BadRequest(new { status = false, message = e.Message });
+            }
+        }
         private string GetUserId()
         {
             return User.FindFirst("Id").Value;

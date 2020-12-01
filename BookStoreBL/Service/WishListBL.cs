@@ -25,5 +25,10 @@ namespace BookStoreBL.Service
         {
             return this.wishListRL.GetAllWishListValues(userId);
         }
+
+        public Cart MoveToCart(string userId, string wishListId)
+        {
+            return this.wishListRL.MoveToCart(userId,wishListId);
+        }
     }
 }

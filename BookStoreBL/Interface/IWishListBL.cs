@@ -9,5 +9,6 @@ namespace BookStoreBL.Interface
     {
         WishList AddBookToWishList(string userId, string bookId);
         List<WishList> GetAllWishListValues(string userId);
+        Cart MoveToCart(string userId, string wishListId);
     }
 }

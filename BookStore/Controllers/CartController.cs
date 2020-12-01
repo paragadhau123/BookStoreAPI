@@ -42,6 +42,7 @@ namespace BookStore.Controllers
             }
         }
 
+
         private string GetUserId()
         {
             return User.FindFirst("Id").Value;
