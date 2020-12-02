@@ -21,6 +21,11 @@ namespace BookStoreBL.Service
             return this.wishListRL.AddBookToWishList(userId,bookId);
         }
 
+        public bool DeleteFromWishList(string wishListId)
+        {
+            return this.wishListRL.DeleteFromWishList(wishListId);
+        }
+
         public List<WishList> GetAllWishListValues(string userId)
         {
             return this.wishListRL.GetAllWishListValues(userId);

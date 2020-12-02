@@ -1,5 +1,8 @@
 ﻿using BookStoreCL.Models;
 using BookStoreRL.Interface;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
+using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -11,18 +14,21 @@ namespace BookStoreRL.Service
     public class BookRL : IBookRL
     {
         private readonly IMongoCollection<Book> _Book;
+        private readonly IConfiguration configuration;
 
-        public BookRL(IBookStoreDatabaseSettings settings)
+        public BookRL(IBookStoreDatabaseSettings settings , IConfiguration configuration)
         {
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
             this._Book = database.GetCollection<Book>(settings.BooksCollectionName);
+            this.configuration = configuration;
         }
 
         public bool AddBook(BookModel bookModel)
         {
             try
             {
+                string image = AddImage(bookModel);
                 Book book = new Book()
                 {
                     BookName = bookModel.BookName,
@@ -30,7 +36,7 @@ namespace BookStoreRL.Service
                     Description = bookModel.Description,
                     Price = bookModel.Price,
                     Quantity = bookModel.Quantity,
-                    Image = bookModel.Image
+                    Image =image
                 };
                 this._Book.InsertOne(book);
                 return true;
@@ -85,6 +91,24 @@ namespace BookStoreRL.Service
             {
                 return false;
             }
+        }
+
+        public string AddImage(BookModel requestModel)
+        {
+            Account account = new Account(
+                                     configuration["CloudinarySettings:CloudName"],
+                                     configuration["CloudinarySettings:ApiKey"],
+                                     configuration["CloudinarySettings:ApiSecret"]);
+            //var path = requestModel.Image.OpenReadStream();
+            Cloudinary cloudinary = new Cloudinary(account);
+
+            var uploadParams = new ImageUploadParams()
+            {
+                File = new FileDescription(@"E:\wp2952290.jpg")
+            };
+
+            var uploadResult = cloudinary.Upload(uploadParams);
+            return uploadResult.Url.ToString();
         }
     }
 }

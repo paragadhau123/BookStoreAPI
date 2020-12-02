@@ -53,6 +53,8 @@ namespace BookStore
             services.AddSingleton<IWishListRl, WishListRL>();
             services.AddSingleton<ICartBL, CartBL>();
             services.AddSingleton<ICartRL, CartRL>();
+            services.AddSingleton<IOrderBL, OrderBL>();
+            services.AddSingleton<IOrderRL, OrderRL>();
 
             services.AddSwaggerGen(s =>
             {

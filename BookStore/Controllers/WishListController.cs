@@ -51,10 +51,7 @@ namespace BookStore.Controllers
             try
             {
                 string userId = this.GetUserId();
-                // Call the GetAllWishListValues Method of Cart class
                 var response = this.wishlistBL.GetAllWishListValues(userId);
-
-                // check if Id is not equal to zero
                 if (!response.Equals(null))
                 {
                     bool status = true;
@@ -82,10 +79,7 @@ namespace BookStore.Controllers
             try
             {
                 string userId = this.GetUserId();
-                // Call the MoveToCart Method of Cart class
-                var response = this.wishlistBL.MoveToCart(userId, WishListId);
-
-                // check if Id is not equal to zero
+                var response = this.wishlistBL.MoveToCart(userId, WishListId);             
                 if (!response.Equals(null))
                 {
                     bool status = true;
@@ -104,6 +98,30 @@ namespace BookStore.Controllers
                 return this.BadRequest(new { status = false, message = e.Message });
             }
         }
+
+        [HttpDelete("{WishListId:length(24)}")]
+        [Authorize(Roles = "User")]
+        public IActionResult DeleteFromWishList(string WishListId)
+        {
+            try
+            {
+                bool result = this.wishlistBL.DeleteFromWishList(WishListId);
+
+                if (!result.Equals(false))
+                {
+                    return this.Ok(new { sucess = true, message = "Deleted Succesfully" });
+                }
+                else
+                {
+                    return this.NotFound(new { sucess = false, message = "No Such WishList present To Delete" });
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
         private string GetUserId()
         {
             return User.FindFirst("Id").Value;

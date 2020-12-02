@@ -9,9 +9,9 @@ namespace BookStoreRL.Service
 {
     public class WishListRL : IWishListRl
     {
-        private readonly IMongoCollection<WishList> _WishList;
-        private readonly IMongoCollection<Book> _Book;
-        private readonly IMongoCollection<Cart> _Cart;
+        private readonly IMongoCollection<WishList>_WishList;
+        private readonly IMongoCollection<Book>_Book;
+        private readonly IMongoCollection<Cart>_Cart;
 
         public WishListRL(IBookStoreDatabaseSettings settings)
         {
@@ -35,6 +35,12 @@ namespace BookStoreRL.Service
             return wishList;
         }
 
+        public bool DeleteFromWishList(string wishListId)
+        {
+            this._WishList.DeleteOne(wishList => wishList.WishListId == wishListId);
+            return true;
+        }
+
         public List<WishList> GetAllWishListValues(string userId)
         {
             List<WishList> details = this._WishList.Find(wishlist => wishlist.UserId == userId).ToList();
@@ -46,7 +52,6 @@ namespace BookStoreRL.Service
             else
             {
                 return null;
-
             }
         }
 

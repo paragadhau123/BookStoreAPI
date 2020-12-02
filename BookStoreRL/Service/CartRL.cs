@@ -32,5 +32,16 @@ namespace BookStoreRL.Service
             this._Cart.InsertOne(cart);
             return cart;
         }
+
+        public bool DeleteFromCart(string cartId)
+        {
+            this._Cart.DeleteOne(wishList => wishList.CartId == cartId);
+            return true;
+        }
+
+        public List<Cart> GetAllCarts(string userId)
+        {
+            return null;
+        }
     }
 }

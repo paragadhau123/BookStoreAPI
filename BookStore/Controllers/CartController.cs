@@ -42,6 +42,56 @@ namespace BookStore.Controllers
             }
         }
 
+        [HttpDelete("{CartId:length(24)}")]
+        [Authorize(Roles = "User")]
+        public IActionResult DeleteFromCart(string CartId)
+        {
+            try
+            {
+                bool result = this.cartBL.DeleteFromCart(CartId);
+
+                if (!result.Equals(false))
+                {
+                    return this.Ok(new { sucess = true, message = "Deleted Succesfully" });
+                }
+                else
+                {
+                    return this.NotFound(new { sucess = false, message = "No Such Cart present To Delete" });
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        [Authorize(Roles = "User")]
+        public IActionResult GetAllCarts()
+        {
+            try
+            {
+                string userId = this.GetUserId();
+                var response = this.cartBL.GetAllCarts(userId);
+                if (!response.Equals(null))
+                {
+                    bool status = true;
+                    var message = "Carts Data Read Successfully";
+                    return this.Ok(new { status, message, data = response });
+                }
+                else
+                {
+                    bool status = false;
+                    var message = "Carts are Empty";
+                    return this.NotFound(new { status, message });
+                }
+            }
+            catch (Exception e)
+            {
+                return this.BadRequest(new { status = false, message = e.Message });
+            }
+        }
 
         private string GetUserId()
         {

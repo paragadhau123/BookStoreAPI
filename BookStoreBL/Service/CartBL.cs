@@ -20,5 +20,15 @@ namespace BookStoreBL.Service
         {
             return this.cartRL.AddBookToCart(userId,bookId);
         }
+
+        public bool DeleteFromCart(string cartId)
+        {
+            return this.cartRL.DeleteFromCart(cartId);
+        }
+
+        public List<Cart> GetAllCarts(string userId)
+        {
+            return this.cartRL.GetAllCarts(userId);
+        }
     }
 }
