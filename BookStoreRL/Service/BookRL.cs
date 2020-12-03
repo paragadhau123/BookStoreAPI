@@ -28,7 +28,7 @@ namespace BookStoreRL.Service
         {
             try
             {
-                string image = AddImage(bookModel);
+             //   string image = AddImage();
                 Book book = new Book()
                 {
                     BookName = bookModel.BookName,
@@ -36,7 +36,7 @@ namespace BookStoreRL.Service
                     Description = bookModel.Description,
                     Price = bookModel.Price,
                     Quantity = bookModel.Quantity,
-                    Image =image
+                    Image =AddImage(bookModel.Image)
                 };
                 this._Book.InsertOne(book);
                 return true;
@@ -93,7 +93,7 @@ namespace BookStoreRL.Service
             }
         }
 
-        public string AddImage(BookModel requestModel)
+        public string AddImage(string path)
         {
             Account account = new Account(
                                      configuration["CloudinarySettings:CloudName"],
@@ -104,7 +104,7 @@ namespace BookStoreRL.Service
 
             var uploadParams = new ImageUploadParams()
             {
-                File = new FileDescription(@"E:\wp2952290.jpg")
+                File = new FileDescription(@path)
               // File = new FileDescription(requestModel.Image.FileName, path)
             };
 
