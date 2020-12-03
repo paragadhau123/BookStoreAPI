@@ -23,9 +23,9 @@ namespace BookStoreBL.Service
             return this.orderRL.AddAddress(userId, addressModel);
         }
 
-        public Order BookOrder(string userId, string cartId, OrderModel orderModel)
+        public Order BookOrder(string userId, string cartId )
         {
-            return this.orderRL.BookOrder(userId, cartId,orderModel);
+            return this.orderRL.BookOrder(userId, cartId);
         }
 
         public bool DeleteOrder(string orderId)
@@ -38,9 +38,9 @@ namespace BookStoreBL.Service
             return this.orderRL.GetAllOrders(userId);
         }
 
-        public List<Order> OrderAllBook(string userId, OrderModel orderModel)
+        public List<Order> OrderAllBook(string userId )
         {
-            return this.orderRL.OrderAllBook(userId, orderModel);
+            return this.orderRL.OrderAllBook(userId);
         }
     }
 }

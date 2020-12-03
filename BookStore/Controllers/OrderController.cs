@@ -25,12 +25,12 @@ namespace BookStore.Controllers
         [HttpPost]
         [Route("")]
         [Authorize(Roles = "User")]
-        public IActionResult BookOrder(string CartId,OrderModel orderModel)
+        public IActionResult BookOrder(string CartId)
         {
             try
             {
                 string userId = this.GetUserId();
-                var response = this.orderBL.BookOrder(userId, CartId,orderModel);
+                var response = this.orderBL.BookOrder(userId, CartId);
 
                 if (!response.Equals(null))
                 {
@@ -54,12 +54,12 @@ namespace BookStore.Controllers
         [HttpPost]
         [Route("OrderAll")]
         [Authorize(Roles = "User")]
-        public IActionResult OrderAllBook(OrderModel orderModel)
+        public IActionResult OrderAllBook()
         {
             try
             {
                 string userId = this.GetUserId();
-                var response = this.orderBL.OrderAllBook(userId,orderModel);
+                var response = this.orderBL.OrderAllBook(userId);
 
                 if (!response.Equals(null))
                 {

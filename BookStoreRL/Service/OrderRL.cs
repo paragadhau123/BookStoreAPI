@@ -30,7 +30,7 @@ namespace BookStoreRL.Service
         {
             AddressModel addressModel1 = new AddressModel()
             {
-                UserId=addressModel.UserId,
+                UserId=userId,
                 City=addressModel.City,
                 State=addressModel.State,
                 Country=addressModel.Country,
@@ -40,10 +40,11 @@ namespace BookStoreRL.Service
             return addressModel1;
         }
 
-        public Order BookOrder(string userId, string cartId, OrderModel orderModel)
+        public Order BookOrder(string userId, string cartId)
         {
             List<Cart> details = this._Cart.Find(cart => cart.CartId == cartId).ToList();
             List<Book> books = this._Book.Find(book => book.BookId == details[0].BookId).ToList();
+            List<AddressModel> address = this._Address.Find(address => address.UserId == userId).ToList();
             Order order = new Order()
             {
                 CartId = cartId,
@@ -51,10 +52,10 @@ namespace BookStoreRL.Service
                 BookId = details[0].BookId,
                 OrderQuantity= details[0].OrderQuantity,
                 TotalPrice = books[0].Price,
-                City = orderModel.City,
-                State = orderModel.State,
-                Country = orderModel.Country,
-                Pincode = orderModel.Pincode
+                City = address[0].City,
+                State = address[0].State,
+                Country = address[0].Country,
+                Pincode = address[0].PinCode
             };
             this._Order.InsertOne(order);
             this._Cart.DeleteOne(cart => cart.CartId == cartId);
@@ -72,9 +73,10 @@ namespace BookStoreRL.Service
             return this._Order.Find(order => order.UserId==userId).ToList();
         }
 
-        public List<Order> OrderAllBook(string userId, OrderModel orderModel)
+        public List<Order> OrderAllBook(string userId)
         {
             List<Cart> details = this._Cart.Find(cart => cart.UserId == userId).ToList();
+            List<AddressModel> address = this._Address.Find(address => address.UserId == userId).ToList();
             for (int i = 0; i < details.Count; i++)
             {
                 List<Book> books = this._Book.Find(book => book.BookId == details[i].BookId).ToList();
@@ -83,10 +85,10 @@ namespace BookStoreRL.Service
                     CartId = details[i].CartId,
                     UserId = userId,
                     BookId = details[i].BookId,
-                    City = orderModel.City,
-                    State = orderModel.State,
-                    Country = orderModel.Country,
-                    Pincode = orderModel.Pincode
+                    City = address[0].City,
+                    State = address[0].State,
+                    Country = address[0].Country,
+                    Pincode = address[0].PinCode
                 };
                 this._Order.InsertOne(order);
                 this._Cart.DeleteOne(cart => cart.CartId == details[i].CartId);
