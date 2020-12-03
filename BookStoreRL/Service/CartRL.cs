@@ -1,4 +1,5 @@
-﻿using BookStoreRL.Interface;
+﻿using BookStoreCL.Models;
+using BookStoreRL.Interface;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -20,14 +21,15 @@ namespace BookStoreRL.Service
             _Book = database.GetCollection<Book>(settings.BooksCollectionName);
         }
 
-        public Cart AddBookToCart(string userId, string bookId)
+        public Cart AddBookToCart(string userId, string bookId, CartModel cartModel)
         {
             List<Book> details = this._Book.Find(book => book.BookId == bookId).ToList();
 
             Cart cart = new Cart()
             {
                 UserId = userId,
-                BookId = details[0].BookId
+                BookId = details[0].BookId,
+                OrderQuantity=cartModel.OrderQuantity
             };
             this._Cart.InsertOne(cart);
             return cart;

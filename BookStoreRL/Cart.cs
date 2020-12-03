@@ -15,5 +15,7 @@ namespace BookStoreRL
         public string UserId { get; set; }
 
         public string BookId { get; set; }
+
+        public string OrderQuantity { get; set; }
     }
 }

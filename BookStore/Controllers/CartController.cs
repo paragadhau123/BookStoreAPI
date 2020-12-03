@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BookStoreBL.Interface;
+using BookStoreCL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,12 +22,12 @@ namespace BookStore.Controllers
 
         [Authorize(Roles = "User")]
         [HttpPost("{BookId:length(24)}")]
-        public IActionResult AddWishList(string BookId)
+        public IActionResult AddBookToCart(string BookId,CartModel cartModel)
         {
             try
             {
                 string userId = this.GetUserId();
-                var data = this.cartBL.AddBookToCart(userId, BookId);
+                var data = this.cartBL.AddBookToCart(userId, BookId, cartModel);
                 if (data != null)
                 {
                     return this.Ok(new { status = "True", message = "Book Added To Cart Successfully", data });

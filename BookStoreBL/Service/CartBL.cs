@@ -1,4 +1,5 @@
 ﻿using BookStoreBL.Interface;
+using BookStoreCL.Models;
 using BookStoreRL;
 using BookStoreRL.Interface;
 using System;
@@ -16,9 +17,9 @@ namespace BookStoreBL.Service
             this.cartRL = cartRL;
         }
 
-        public Cart AddBookToCart(string userId, string bookId)
+        public Cart AddBookToCart(string userId, string bookId, CartModel cartModel)
         {
-            return this.cartRL.AddBookToCart(userId,bookId);
+            return this.cartRL.AddBookToCart(userId,bookId,cartModel);
         }
 
         public bool DeleteFromCart(string cartId)
