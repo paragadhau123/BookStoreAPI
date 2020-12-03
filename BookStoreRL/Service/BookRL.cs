@@ -28,7 +28,7 @@ namespace BookStoreRL.Service
         {
             try
             {
-             //   string image = AddImage();
+                //   string image = AddImage();
                 Book book = new Book()
                 {
                     BookName = bookModel.BookName,
@@ -99,13 +99,11 @@ namespace BookStoreRL.Service
                                      configuration["CloudinarySettings:CloudName"],
                                      configuration["CloudinarySettings:ApiKey"],
                                      configuration["CloudinarySettings:ApiSecret"]);
-            //var path = requestModel.Image.OpenReadStream();
             Cloudinary cloudinary = new Cloudinary(account);
 
             var uploadParams = new ImageUploadParams()
             {
                 File = new FileDescription(@path)
-              // File = new FileDescription(requestModel.Image.FileName, path)
             };
 
             var uploadResult = cloudinary.Upload(uploadParams);

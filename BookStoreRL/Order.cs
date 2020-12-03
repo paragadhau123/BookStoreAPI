@@ -18,7 +18,7 @@ namespace BookStoreRL
 
         public string BookId { get; set; }
 
-        public string Quantity { get; set; }
+        public string OrderQuantity { get; set; }
 
         public string TotalPrice { get; set; }
 

@@ -31,6 +31,7 @@ namespace BookStoreRL.Service
                 CartId = cartId,
                 UserId = userId,
                 BookId = details[0].BookId,
+                OrderQuantity= details[0].OrderQuantity,
                 TotalPrice = books[0].Price,
                 City = orderModel.City,
                 State = orderModel.State,
@@ -38,7 +39,7 @@ namespace BookStoreRL.Service
                 Pincode = orderModel.Pincode
             };
             this._Order.InsertOne(order);
-
+            this._Cart.DeleteOne(cart => cart.CartId == cartId);
             return order;
         }
 
@@ -70,6 +71,7 @@ namespace BookStoreRL.Service
                     Pincode = orderModel.Pincode
                 };
                 this._Order.InsertOne(order);
+                this._Cart.DeleteOne(cart => cart.CartId == details[i].CartId);
             }
             return this._Order.Find(order => order.UserId == userId).ToList();
         }
