@@ -16,7 +16,9 @@ namespace BookStoreRL.Interface
        public  bool UpdateBookDetails(string id, Book book);
 
        public List<Book> SerchBookByID(string id);
-        List<Book> SortBooks();
-        List<Book> SortHighToLow();
+
+       List<Book> SortBooks();
+
+       List<Book> SortHighToLow();
     }
 }

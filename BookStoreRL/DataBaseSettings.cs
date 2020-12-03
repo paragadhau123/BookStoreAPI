@@ -19,6 +19,8 @@ namespace BookStoreRL
         public string WishListCollectionName { get; set; }
 
         public string CartCollectionName { get; set; }
+
+        public string OrderCollectionName { get; set; }
     }
 
 
@@ -37,5 +39,7 @@ namespace BookStoreRL
         public string WishListCollectionName { get; set; }
 
         public string CartCollectionName { get; set; }
+
+        public string OrderCollectionName { get; set; }
     }
 }

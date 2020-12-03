@@ -105,6 +105,7 @@ namespace BookStoreRL.Service
             var uploadParams = new ImageUploadParams()
             {
                 File = new FileDescription(@"E:\wp2952290.jpg")
+              // File = new FileDescription(requestModel.Image.FileName, path)
             };
 
             var uploadResult = cloudinary.Upload(uploadParams);
