@@ -1,5 +1,6 @@
 ﻿using BookStoreBL.Interface;
 using BookStoreCL.Models;
+using BookStoreCL.RequestModels;
 using BookStoreRL;
 using BookStoreRL.Interface;
 using System;
@@ -16,6 +17,12 @@ namespace BookStoreBL.Service
         {
             this.orderRL = orderRL;
         }
+
+        public AddressModel AddAddress(string userId, AddressModel addressModel)
+        {
+            return this.orderRL.AddAddress(userId, addressModel);
+        }
+
         public Order BookOrder(string userId, string cartId, OrderModel orderModel)
         {
             return this.orderRL.BookOrder(userId, cartId,orderModel);

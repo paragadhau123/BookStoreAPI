@@ -1,4 +1,5 @@
 ﻿using BookStoreCL.Models;
+using BookStoreCL.RequestModels;
 using BookStoreRL.Interface;
 using MongoDB.Driver;
 using System;
@@ -13,6 +14,7 @@ namespace BookStoreRL.Service
         private readonly IMongoCollection<Cart> _Cart;
         private readonly IMongoCollection<Order> _Order;
         private readonly IMongoCollection<Book> _Book;
+        private readonly IMongoCollection<AddressModel> _Address;
 
         public OrderRL(IBookStoreDatabaseSettings settings)
         {
@@ -21,7 +23,23 @@ namespace BookStoreRL.Service
             _Cart = database.GetCollection<Cart>(settings.CartCollectionName);
             _Order = database.GetCollection<Order>(settings.OrderCollectionName);
             _Book = database.GetCollection<Book>(settings.BooksCollectionName);
+            _Address = database.GetCollection<AddressModel>(settings.AddressCollectionName);
         }
+
+        public AddressModel AddAddress(string userId, AddressModel addressModel)
+        {
+            AddressModel addressModel1 = new AddressModel()
+            {
+                UserId=addressModel.UserId,
+                City=addressModel.City,
+                State=addressModel.State,
+                Country=addressModel.Country,
+                PinCode=addressModel.PinCode                
+            };
+            this._Address.InsertOne(addressModel1);
+            return addressModel1;
+        }
+
         public Order BookOrder(string userId, string cartId, OrderModel orderModel)
         {
             List<Cart> details = this._Cart.Find(cart => cart.CartId == cartId).ToList();

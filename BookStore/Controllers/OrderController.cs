@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BookStoreBL.Interface;
 using BookStoreCL.Models;
+using BookStoreCL.RequestModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -132,6 +133,36 @@ namespace BookStore.Controllers
                 return this.BadRequest(new { status = false, message = e.Message });
             }
         }
+
+        [HttpPost]
+        [Route("AddAddress")]
+        [Authorize(Roles = "User")]
+        public IActionResult AddAddress(AddressModel addressModel )
+        {
+            try
+            {
+                string userId = this.GetUserId();
+                var response = this.orderBL.AddAddress(userId, addressModel);
+
+                if (!response.Equals(null))
+                {
+                    bool status = true;
+                    var message = "Address Added Successfully";
+                    return this.Ok(new { status, message, data = response });
+                }
+                else
+                {
+                    bool status = false;
+                    var message = "Failed To Add Address";
+                    return this.BadRequest(new { status, message });
+                }
+            }
+            catch (Exception e)
+            {
+                return this.BadRequest(new { status = false, message = e.Message });
+            }
+        }
+
         private string GetUserId()
         {
             return User.FindFirst("Id").Value;

@@ -21,6 +21,8 @@ namespace BookStoreRL
         public string CartCollectionName { get; set; }
 
         public string OrderCollectionName { get; set; }
+
+        public string AddressCollectionName { get; set; }
     }
 
 
@@ -41,5 +43,7 @@ namespace BookStoreRL
         public string CartCollectionName { get; set; }
 
         public string OrderCollectionName { get; set; }
+
+        public string AddressCollectionName { get; set; }
     }
 }

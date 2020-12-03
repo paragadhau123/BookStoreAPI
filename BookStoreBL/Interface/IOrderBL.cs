@@ -1,4 +1,5 @@
 ﻿using BookStoreCL.Models;
+using BookStoreCL.RequestModels;
 using BookStoreRL;
 using System;
 using System.Collections.Generic;
@@ -12,5 +13,6 @@ namespace BookStoreBL.Interface
         List<Order> OrderAllBook(string userId, OrderModel orderModel);
         bool DeleteOrder(string orderId);
         List<Order> GetAllOrders(string userId);
+        AddressModel AddAddress(string userId, AddressModel addressModel);
     }
 }
