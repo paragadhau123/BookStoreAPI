@@ -8,6 +8,6 @@ namespace BookStoreCL.Models
     {
        // public string BookId { get; set; }
 
-        public string OrderQuantity { get; set; }
+        public int OrderQuantity { get; set; }
     }
 }

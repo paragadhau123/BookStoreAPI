@@ -32,7 +32,7 @@ namespace BookStore.Controllers
                 string userId = this.GetUserId();
                 var response = this.orderBL.BookOrder(userId, CartId);
 
-                if (!response.Equals(null))
+                if (response != null)
                 {
                     bool status = true;
                     var message = "Order Book Successfully";
@@ -41,7 +41,7 @@ namespace BookStore.Controllers
                 else
                 {
                     bool status = false;
-                    var message = "Failed To Book Order";
+                    var message = "Out of Stock";
                     return this.BadRequest(new { status, message });
                 }
             }

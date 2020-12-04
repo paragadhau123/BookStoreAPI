@@ -45,21 +45,31 @@ namespace BookStoreRL.Service
             List<Cart> details = this._Cart.Find(cart => cart.CartId == cartId).ToList();
             List<Book> books = this._Book.Find(book => book.BookId == details[0].BookId).ToList();
             List<AddressModel> address = this._Address.Find(address => address.UserId == userId).ToList();
-            Order order = new Order()
+            if (books[0].Quantity>=details[0].OrderQuantity)
             {
-                CartId = cartId,
-                UserId = userId,
-                BookId = details[0].BookId,
-                OrderQuantity= details[0].OrderQuantity,
-                TotalPrice = books[0].Price,
-                City = address[0].City,
-                State = address[0].State,
-                Country = address[0].Country,
-                Pincode = address[0].PinCode
-            };
-            this._Order.InsertOne(order);
-            this._Cart.DeleteOne(cart => cart.CartId == cartId);
-            return order;
+                Order order = new Order()
+                {
+                    CartId = cartId,
+                    UserId = userId,
+                    BookId = details[0].BookId,
+                    OrderQuantity = details[0].OrderQuantity,
+                    TotalPrice = books[0].Price,
+                    City = address[0].City,
+                    State = address[0].State,
+                    Country = address[0].Country,
+                    Pincode = address[0].PinCode
+                };
+                this._Order.InsertOne(order);
+                var filter = Builders<Book>.Filter.Eq("BookId", details[0].BookId);
+                var update = Builders<Book>.Update.Set("Quantity", books[0].Quantity - details[0].OrderQuantity);
+                _Book.UpdateOne(filter, update);
+                this._Cart.DeleteOne(cart => cart.CartId == cartId);
+                return order;
+            }  
+            else
+            {
+                return null;
+            }
         }
 
         public bool DeleteOrder(string orderId)
@@ -85,12 +95,17 @@ namespace BookStoreRL.Service
                     CartId = details[i].CartId,
                     UserId = userId,
                     BookId = details[i].BookId,
+                    OrderQuantity= details[i].OrderQuantity,
+                    TotalPrice = books[i].Price,
                     City = address[0].City,
                     State = address[0].State,
                     Country = address[0].Country,
                     Pincode = address[0].PinCode
                 };
                 this._Order.InsertOne(order);
+                var filter = Builders<Book>.Filter.Eq("BookId", details[i].BookId);
+                var update = Builders<Book>.Update.Set("Quantity", books[i].Quantity - details[i].OrderQuantity);
+                _Book.UpdateOne(filter, update);
                 this._Cart.DeleteOne(cart => cart.CartId == details[i].CartId);
             }
             return this._Order.Find(order => order.UserId == userId).ToList();
