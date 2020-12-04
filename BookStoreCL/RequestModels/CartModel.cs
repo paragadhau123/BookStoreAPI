@@ -6,8 +6,6 @@ namespace BookStoreCL.Models
 {
     public class CartModel
     {
-       // public string BookId { get; set; }
-
         public int OrderQuantity { get; set; }
     }
 }

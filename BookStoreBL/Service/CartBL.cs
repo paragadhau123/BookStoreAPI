@@ -31,5 +31,10 @@ namespace BookStoreBL.Service
         {
             return this.cartRL.GetAllCarts(userId);
         }
+
+        public bool UpdateCart(string cartId, CartModel cartModel)
+        {
+            return this.cartRL.UpdateCart(cartId,cartModel);
+        }
     }
 }

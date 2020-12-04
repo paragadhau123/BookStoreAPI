@@ -66,6 +66,29 @@ namespace BookStore.Controllers
             }
         }
 
+        [HttpPut("{CartId:length(24)}")]
+        [Authorize(Roles = "User")]
+        public IActionResult UpdateCart(string CartId,CartModel cartModel)
+        {
+            try
+            {
+                bool result = this.cartBL.UpdateCart(CartId, cartModel);
+
+                if (!result.Equals(false))
+                {
+                    return this.Ok(new { sucess = true, message = "Updated Succesfully" });
+                }
+                else
+                {
+                    return this.NotFound(new { sucess = false, message = "No Such Cart present To Update" });
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
         [HttpGet]
         [AllowAnonymous]
         [Authorize(Roles = "User")]

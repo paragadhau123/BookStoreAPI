@@ -12,5 +12,6 @@ namespace BookStoreRL.Interface
         bool DeleteFromCart(string cartId);
 
         List<Cart> GetAllCarts(string userId);
+        bool UpdateCart(string cartId, CartModel cartModel);
     }
 }

@@ -45,5 +45,13 @@ namespace BookStoreRL.Service
         {
             return null;
         }
+
+        public bool UpdateCart(string cartId, CartModel cartModel)
+        {
+            var filter = Builders<Cart>.Filter.Eq("CartId", cartId);
+            var update = Builders<Cart>.Update.Set("OrderQuantity", cartModel.OrderQuantity);
+            _Cart.UpdateOne(filter, update);
+            return true;
+        }
     }
 }
