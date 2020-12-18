@@ -51,7 +51,7 @@ namespace BookStore.Controllers
             try
             {
                 string userId = this.GetUserId();
-                var response = this.wishlistBL.GetAllWishListValues(userId);
+                dynamic response = this.wishlistBL.GetAllWishListValues(userId);
                 if (!response.Equals(null))
                 {
                     bool status = true;
@@ -71,8 +71,8 @@ namespace BookStore.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("MoveToCart")]
+        [HttpPost("MoveToCart/{WishListId:length(24)}")]
+       // [Route("MoveToCart")]
         [Authorize(Roles = "User")]
         public IActionResult MoveToCart(string WishListId)
         {

@@ -41,17 +41,31 @@ namespace BookStoreRL.Service
             return true;
         }
 
-        public List<WishList> GetAllWishListValues(string userId)
+        public dynamic GetAllWishListValues(string userId)
         {
-            List<WishList> details = this._WishList.Find(wishlist => wishlist.UserId == userId).ToList();
-
-            if (details.Count == 0)
+            try
             {
-                return null;
+                var query = from w in _WishList.AsQueryable()
+                            join b in _Book.AsQueryable()
+                            on w.BookId equals b.BookId into newItem
+                            where w.UserId == userId
+                            select new
+                            {
+                                WishListId = w.WishListId,
+                                BookId = w.BookId,
+                                BookName = newItem.First().BookName,
+                                AuthorName = newItem.First().AuthorName,
+                                Price = newItem.First().Price,
+                                Quantity= newItem.First().Quantity,
+                                Image = newItem.First().Image
+                            };
+                var a = query.ToList();
+                return a;
             }
-            else
+
+            catch (Exception e)
             {
-                return null;
+                throw e;
             }
         }
 

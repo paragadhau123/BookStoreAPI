@@ -24,6 +24,14 @@ namespace BookStoreRL
 
         public string Password { get; set; }
 
+        public string City { get; set; }
+
+        public string State { get; set; }
+
+        public string PinCode { get; set; }
+
+        public string Role { get; set; }
+
         public string Token { get; set; }
 
         public DateTime RegistrationDate { get; set; }

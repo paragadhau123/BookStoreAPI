@@ -20,6 +20,7 @@ namespace BookStoreBL.Interface
        User LoginAdmin(UserLoginModel userLoginModel);
 
        string ForgetPassword(UserForgetPasswordModel userForgetPasswordModel);
+
         bool ResetPassword(UserResetPasswordModel userResetPasswordModel, string userId);
     }
 }

@@ -28,7 +28,6 @@ namespace BookStoreRL.Service
         {
             try
             {
-                //   string image = AddImage();
                 Book book = new Book()
                 {
                     BookName = bookModel.BookName,
@@ -36,6 +35,7 @@ namespace BookStoreRL.Service
                     Description = bookModel.Description,
                     Price = bookModel.Price,
                     Quantity = bookModel.Quantity,
+                    IsAddedToCart=false,
                     Image =AddImage(bookModel.Image)
                 };
                 this._Book.InsertOne(book);
@@ -85,6 +85,9 @@ namespace BookStoreRL.Service
             try
             {
                 this._Book.ReplaceOne(book => book.BookId == id, book);
+                var filter = Builders<Book>.Filter.Eq("BookId", id);
+                var update = Builders<Book>.Update.Set("Image", AddImage(book.Image));
+                _Book.UpdateOne(filter, update);
                 return true;
             }
             catch

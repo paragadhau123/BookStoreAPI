@@ -21,7 +21,7 @@ namespace BookStore.Controllers
             this.userBL = userBL;
         }
 
-        [HttpPost("RegisterUser")]
+        [HttpPost("Register")]
         public IActionResult RegisterUser(UserModel userModel)
         {
             try
@@ -43,7 +43,7 @@ namespace BookStore.Controllers
             }
         }
 
-        [HttpGet("GetAllUsers")]
+        [HttpGet("")]
         public IActionResult GetAllUserDetails()
         {
             try
@@ -114,7 +114,7 @@ namespace BookStore.Controllers
             }
         }
 
-        [HttpPost("UserLogin")]
+        [HttpPost("Login")]
         public IActionResult LoginAdmin(UserLoginModel userLoginModel)
         {
             try
@@ -144,7 +144,7 @@ namespace BookStore.Controllers
         }
 
 
-        [HttpPost("UserForgetPassword")]
+        [HttpPost("ForgetPassword")]
         public IActionResult ForgetPassword(UserForgetPasswordModel userForgetPasswordModel)
         {
             try
@@ -165,7 +165,7 @@ namespace BookStore.Controllers
             }
         }
 
-        [HttpPost("UserResetPassword")]
+        [HttpPost("ResetPassword")]
         public IActionResult ResetPassword( UserResetPasswordModel userResetPasswordModel)
         {
             try

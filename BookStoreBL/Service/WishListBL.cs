@@ -26,7 +26,7 @@ namespace BookStoreBL.Service
             return this.wishListRL.DeleteFromWishList(wishListId);
         }
 
-        public List<WishList> GetAllWishListValues(string userId)
+        public dynamic GetAllWishListValues(string userId)
         {
             return this.wishListRL.GetAllWishListValues(userId);
         }

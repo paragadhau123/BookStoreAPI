@@ -44,7 +44,7 @@ namespace BookStore.Controllers
             }
         }
 
-        [HttpGet("GetAllBooks")]
+        [HttpGet("")]
         [AllowAnonymous]
         public IActionResult GetAllBooks()
         {
@@ -191,6 +191,22 @@ namespace BookStore.Controllers
             }
 
         }
+        /*[HttpPost("{bookId:length(24)}")]
+        public IActionResult IsAddedToCart(string bookId)
+        {
+            try
+            {
 
+                var result = this.bookBL.IsAddedToCart(bookId);
+                if (result == true)
+                    return this.Ok(new { sucess = true, message = "Successfully Added  notes" });
+                else
+                    return this.BadRequest(new { success = false, meaasage = " notes dosn't trashed Successfully" });
+            }
+            catch (Exception e)
+            {
+                return this.BadRequest(new { sucess = false, message = e.Message });
+            }
+        }*/
     }
 }

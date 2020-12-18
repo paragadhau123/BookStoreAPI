@@ -20,6 +20,13 @@ namespace BookStoreCL
 
         public string PhoneNumber { get; set; }
 
+        public string City { get; set; }
+
+        public string State { get; set; }
+
+        public string PinCode { get; set; }
+
+
         public string Password { get; set; }
 
        // public string Role { get; set; }

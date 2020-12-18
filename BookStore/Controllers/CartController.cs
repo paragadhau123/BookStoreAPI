@@ -22,12 +22,12 @@ namespace BookStore.Controllers
 
         [Authorize(Roles = "User")]
         [HttpPost("{BookId:length(24)}")]
-        public IActionResult AddBookToCart(string BookId,CartModel cartModel)
+        public IActionResult AddBookToCart(string BookId)
         {
             try
             {
                 string userId = this.GetUserId();
-                var data = this.cartBL.AddBookToCart(userId, BookId, cartModel);
+                var data = this.cartBL.AddBookToCart(userId, BookId);
                 if (data != null)
                 {
                     return this.Ok(new { status = "True", message = "Book Added To Cart Successfully", data });
@@ -90,14 +90,13 @@ namespace BookStore.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
         [Authorize(Roles = "User")]
         public IActionResult GetAllCarts()
         {
             try
             {
                 string userId = this.GetUserId();
-                var response = this.cartBL.GetAllCarts(userId);
+                dynamic response = this.cartBL.GetAllCarts(userId);
                 if (!response.Equals(null))
                 {
                     bool status = true;
@@ -117,6 +116,57 @@ namespace BookStore.Controllers
             }
         }
 
+        [HttpGet]
+        [Authorize(Roles = "User")]
+        [Route("IncreaseQuantity/{bookId}")]
+        public IActionResult IncreaseQuantity(string bookId)
+        {
+            try
+            {
+                string userId = GetUserId();
+                var result = this.cartBL.IncreaseQuantity(bookId, userId);
+
+                if (result == false)
+                {
+                    return this.BadRequest(new { success = false, message = "plese add book to cart first" });
+
+                }
+                else
+                {
+                    return this.Ok(new { success = true, message = "quantity updated", data = result });
+                }
+            }
+            catch (Exception e)
+            {
+                return this.BadRequest(new { success = false, message = e.Message });
+            }
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "User")]
+        [Route("DecreaseQuantity/{bookId}")]
+        public IActionResult DecreaseQuantity(string bookId)
+        {
+            try
+            {
+                string userId = GetUserId();
+                var result = this.cartBL.DecreaseQuantity(bookId, userId);
+
+                if (result == false)
+                {
+                    return this.BadRequest(new { success = false, message = "plese add book to cart first" });
+
+                }
+                else
+                {
+                    return this.Ok(new { success = true, message = "quantity updated", data = result });
+                }
+            }
+            catch (Exception e)
+            {
+                return this.BadRequest(new { success = false, message = e.Message });
+            }
+        }
         private string GetUserId()
         {
             return User.FindFirst("Id").Value;

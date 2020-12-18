@@ -14,6 +14,7 @@ namespace BookStoreRL
 
         public string UserId { get; set; }
 
+        [BsonRepresentation(BsonType.ObjectId)]
         public string BookId { get; set; }
     }
 }

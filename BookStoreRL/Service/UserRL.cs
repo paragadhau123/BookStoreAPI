@@ -51,8 +51,9 @@ namespace BookStoreRL.Service
             user.LastName = validation[0].LastName;
             user.EmailId = validation[0].EmailId;
             user.PhoneNumber = validation[0].PhoneNumber;
+            user.Role = validation[0].Role;
             user.Gender = validation[0].Gender;
-            user.Token= CreateToken(user, "User");
+            user.Token= CreateToken(user, validation[0].Role);
 
             return user;
         }
@@ -98,6 +99,10 @@ namespace BookStoreRL.Service
                     Gender = userModel.Gender,
                     EmailId = userModel.EmailId,
                     PhoneNumber = userModel.PhoneNumber,
+                    City = userModel.City,
+                    Role="User",
+                    State = userModel.State,
+                    PinCode = userModel.PinCode,
                     Password = userModel.Password,
                     RegistrationDate = userModel.RegistrationDate
                 };
@@ -107,8 +112,7 @@ namespace BookStoreRL.Service
             catch
             {
                 return false;
-            }
-           
+            }           
         }
 
         public bool UpdateAccountDetails(string id, User user)
@@ -131,8 +135,6 @@ namespace BookStoreRL.Service
             user.EmailId = details[0].EmailId;
             user.Id = details[0].Id;
             string Token = CreateToken(user, "User");
-
-
             String body = "http://localhost:4200/resetPassword/" + Token;
             MailMessage mailMessage = new MailMessage(userForgetPasswordModel.EmailId, userForgetPasswordModel.EmailId);
             mailMessage.Subject = "reset password";

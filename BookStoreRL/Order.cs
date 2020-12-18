@@ -20,7 +20,7 @@ namespace BookStoreRL
 
         public int OrderQuantity { get; set; }
 
-        public string TotalPrice { get; set; }
+        public int TotalPrice { get; set; }
 
         public string City { get; set; }
 

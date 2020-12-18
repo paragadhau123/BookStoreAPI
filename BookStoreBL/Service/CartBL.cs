@@ -17,9 +17,14 @@ namespace BookStoreBL.Service
             this.cartRL = cartRL;
         }
 
-        public Cart AddBookToCart(string userId, string bookId, CartModel cartModel)
+        public Cart AddBookToCart(string userId, string bookId)
         {
-            return this.cartRL.AddBookToCart(userId,bookId,cartModel);
+            return this.cartRL.AddBookToCart(userId,bookId);
+        }
+
+        public bool DecreaseQuantity(string bookId, string userId)
+        {
+            return this.cartRL.DecreaseQuantity(bookId, userId);
         }
 
         public bool DeleteFromCart(string cartId)
@@ -27,9 +32,14 @@ namespace BookStoreBL.Service
             return this.cartRL.DeleteFromCart(cartId);
         }
 
-        public List<Cart> GetAllCarts(string userId)
+        public dynamic GetAllCarts(string userId)
         {
             return this.cartRL.GetAllCarts(userId);
+        }
+
+        public bool IncreaseQuantity(string bookId, string userId)
+        {
+            return this.cartRL.IncreaseQuantity(bookId,userId);
         }
 
         public bool UpdateCart(string cartId, CartModel cartModel)
