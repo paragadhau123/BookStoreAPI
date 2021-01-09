@@ -55,7 +55,8 @@ namespace BookStore
             services.AddSingleton<ICartRL, CartRL>();
             services.AddSingleton<IOrderBL, OrderBL>();
             services.AddSingleton<IOrderRL, OrderRL>();
-
+            services.AddSingleton<IReviewBL, ReviewBL>();
+            services.AddSingleton<IReviewRL, ReviewRL>();
             services.AddSwaggerGen(s =>
             {
                 s.SwaggerDoc("v1", new OpenApiInfo

@@ -23,6 +23,8 @@ namespace BookStoreRL
         public string OrderCollectionName { get; set; }
 
         public string AddressCollectionName { get; set; }
+
+        public string reviewCollectionName { get; set; }
     }
 
 
@@ -45,5 +47,7 @@ namespace BookStoreRL
         public string OrderCollectionName { get; set; }
 
         public string AddressCollectionName { get; set; }
+
+        public string reviewCollectionName { get; set; }
     }
 }
